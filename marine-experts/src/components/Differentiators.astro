@@ -1,0 +1,17 @@
+---
+import { differentiators } from '~/content/site';
+---
+
+<section class="container py-12">
+  <h2 class="text-2xl md:text-3xl font-semibold text-navy">Why Marine Experts</h2>
+  <ul class="mt-6 grid md:grid-cols-2 gap-4">
+    {
+      differentiators.map((d) => (
+        <li class="flex items-start gap-3">
+          <span class="mt-1 inline-block size-2 rounded-full bg-teal" aria-hidden="true" />
+          <span class="text-sm text-slate">{d}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

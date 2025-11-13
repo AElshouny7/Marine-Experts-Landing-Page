@@ -1,1 +1,13 @@
-    
+---
+const { title, description, icon } = Astro.props as {
+  title: string;
+  description: string;
+  icon: string;
+};
+---
+
+<article class="rounded-2xl border border-sand p-6 bg-white shadow-sm h-full">
+  <div class="text-2xl" aria-hidden="true">{icon}</div>
+  <h3 class="mt-3 text-lg font-semibold text-navy">{title}</h3>
+  <p class="mt-2 text-sm leading-6 text-slate">{description}</p>
+</article>

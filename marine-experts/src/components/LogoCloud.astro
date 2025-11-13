@@ -1,0 +1,16 @@
+---
+import { logoCloud } from '~/content/site';
+---
+
+<section aria-labelledby="logos" class="container py-12">
+  <h2 id="logos" class="text-center text-sm tracking-wide uppercase text-slate">
+    {logoCloud.title}
+  </h2>
+  <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center">
+    {
+      logoCloud.logos.map((l) => (
+        <img class="mx-auto opacity-80" src={l.src} width="120" height="48" alt={l.alt} />
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,16 @@
+---
+import { metrics } from '~/content/site';
+---
+
+<section class="bg-navy text-white">
+  <div class="container py-10 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+    {
+      metrics.map((m) => (
+        <div>
+          <div class="text-3xl font-semibold">{m.value}</div>
+          <div class="text-sm opacity-90">{m.label}</div>
+        </div>
+      ))
+    }
+  </div>
+</section>

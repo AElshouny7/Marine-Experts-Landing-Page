@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://marineexpertsuae.com/sitemap-index.xml

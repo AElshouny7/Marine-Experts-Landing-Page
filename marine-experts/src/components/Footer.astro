@@ -1,0 +1,53 @@
+---
+import { contact } from '~/content/site';
+---
+
+<!-- center the both 2 divs i have -->
+<footer class="mt-16 border-t border-sand">
+  <div class="container py-10 grid md:grid-cols-3 gap-10">
+    <section aria-labelledby="certs">
+      <h2 id="certs" class="text-lg font-semibold text-navy">Certifications</h2>
+      <div class="mt-4 flex gap-4 items-center">
+        <img src="/icons/ism-code.svg" width="48" height="48" alt="ISM Code" />
+        <img src="/icons/iso-9001.svg" width="48" height="48" alt="ISO 9001" />
+        <img src="/icons/iso-14001.svg" width="48" height="48" alt="ISO 14001" />
+      </div>
+    </section>
+
+    <section aria-labelledby="contact">
+      <h2 id="contact" class="text-lg font-semibold text-navy">Contact</h2>
+      <ul class="mt-4 space-y-1">
+        <li>
+          <a class="hover:underline" href={`mailto:${contact.contactEmail}`}
+            >{contact.contactEmail}</a
+          >
+        </li>
+        <!-- <li>
+          <a class="hover:underline" href={`mailto:${contact.salesEmail}`}>{contact.salesEmail}</a>
+        </li> -->
+        <li><a class="hover:underline" href={`tel:${contact.phone}`}>{contact.phone}</a></li>
+        <li>
+          <a
+            class="hover:underline"
+            href={contact.address.maps}
+            target="_blank"
+            rel="noopener noreferrer">{contact.address.text}</a
+          >
+        </li>
+      </ul>
+    </section>
+
+    <!-- <section aria-labelledby="socials">
+      <h2 id="socials" class="text-lg font-semibold text-navy">Follow</h2>
+      <p class="mt-4 text-sm text-slate">LinkedIn &bull; X (Twitter) &bull; YouTube</p>
+    </section> -->
+  </div>
+  <div class="border-t border-sand">
+    <div
+      class="container py-6 text-sm text-slate flex flex-wrap items-center justify-between gap-4"
+    >
+      <p>&copy; {new Date().getFullYear()} Marine Experts. All rights reserved.</p>
+      <a class="hover:underline" href="/manifest.webmanifest">PWA Manifest</a>
+    </div>
+  </div>
+</footer>

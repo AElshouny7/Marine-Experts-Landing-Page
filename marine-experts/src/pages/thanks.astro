@@ -1,0 +1,23 @@
+---
+import '~/styles/tailwind.css';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Thanks — Marine Experts</title>
+  </head>
+  <body>
+    <Header />
+    <main class="container py-20 text-center">
+      <h1 class="text-3xl font-semibold text-navy">Thank you!</h1>
+      <p class="mt-3 text-slate">
+        Your request has been received. Our operations desk will reach out shortly.
+      </p>
+      <a class="mt-6 inline-block px-5 py-3 rounded-xl bg-teal text-white" href="/">Back to home</a>
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+import { how } from '~/content/site';
+---
+
+<section id="how" class="container py-14">
+  <h2 class="text-2xl md:text-3xl font-semibold text-navy">How We Work</h2>
+  <ol class="mt-6 grid md:grid-cols-3 gap-6">
+    {
+      how.steps.map((s, i) => (
+        <li class="rounded-2xl border border-sand p-6">
+          <div class="text-sm text-slate">Step {i + 1}</div>
+          <h3 class="mt-1 text-lg font-semibold text-navy">{s.title}</h3>
+          <p class="mt-2 text-sm text-slate">{s.text}</p>
+        </li>
+      ))
+    }
+  </ol>
+  <ul class="mt-6 grid md:grid-cols-3 gap-4">
+    {how.callouts.map((c) => <li class="rounded-xl bg-sand/50 p-4 text-sm text-navy">{c}</li>)}
+  </ul>
+</section>

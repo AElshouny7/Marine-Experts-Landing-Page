@@ -1,0 +1,57 @@
+---
+/** Sticky header with mobile nav; minimal JS (no island). */
+const nav = [
+  { label: 'Services', href: '#services' },
+  { label: 'How we work', href: '#how' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Cases', href: '#cases' },
+  { label: 'FAQs', href: '#faqs' },
+];
+---
+
+<header
+  class="sticky top-0 z-40 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-b border-sand"
+>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="container flex items-center justify-between py-3">
+    <a href="/" class="flex items-center gap-2" aria-label="Marine Experts home">
+      <img src="/icons/logo.svg" width="128" height="32" alt="Marine Experts logo" />
+    </a>
+    <nav aria-label="Main" class="hidden md:block">
+      <ul class="flex items-center gap-6">
+        {
+          nav.map((n) => (
+            <li>
+              <a
+                class="text-sm font-medium text-navy hover:text-teal focus-visible:text-teal"
+                href={n.href}
+              >
+                {n.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="md:hidden">
+      <details>
+        <summary class="cursor-pointer text-navy px-3 py-2 rounded hover:bg-sand/50">Menu</summary>
+        <ul class="mt-2 bg-white border border-sand rounded p-2">
+          {
+            nav.map((n) => (
+              <li class="py-1">
+                <a class="block px-2 py-1 rounded hover:bg-sand/50" href={n.href}>
+                  {n.label}
+                </a>
+              </li>
+            ))
+          }
+          <li class="pt-2">
+            <a class="block px-2 py-2 text-white bg-teal rounded text-center" href="#contact"
+              >Request a Quote</a>
+          </li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</header>

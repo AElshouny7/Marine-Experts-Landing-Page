@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Accessible focus outlines */
+:where(a, button, [role="button"], input, select, textarea):focus-visible {
+    @apply outline outline-2 outline-teal ring-0;
+}
+
+/* Base typography (minimal) */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        color-scheme: light;
+    }
+
+    body {
+        @apply bg-white text-slate antialiased;
+        font-family: theme('fontFamily.sans');
+    }
+
+    h1,
+    h2 {
+        font-family: theme('fontFamily.serif');
+    }
+}
+
+/* Prose defaults */
+.prose {
+    --tw-prose-headings: theme(colors.navy);
+    --tw-prose-links: theme(colors.teal);
+}
+
+/* Skip link */
+.skip-link {
+    @apply sr-only focus:not-sr-only fixed top-2 left-2 z-50 bg-white text-navy px-3 py-2 rounded;
+}

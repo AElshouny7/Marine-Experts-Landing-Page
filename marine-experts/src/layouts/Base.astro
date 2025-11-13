@@ -1,0 +1,17 @@
+---
+import '~/styles/tailwind.css';
+const { title = 'Marine Experts' } = Astro.props;
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <!-- Allow Pages to Add Their Own Meta Tags -->
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+    "name": "Marine Experts UAE",
+    "short_name": "MarineExpertsUAE",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0B1F3A",
+    "theme_color": "#0B1F3A",
+    "icons": [
+        {
+            "src": "/icons/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}
