@@ -10,6 +10,9 @@ const { title = 'Marine Experts' } = Astro.props;
     <title>{title}</title>
     <!-- Allow Pages to Add Their Own Meta Tags -->
     <slot name="head" />
+    <!-- {import.meta.env.HCAPTCHA_ENABLED === 'true' && import.meta.env.HCAPTCHA_SITEKEY && (
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+  )} -->
   </head>
   <body>
     <slot />

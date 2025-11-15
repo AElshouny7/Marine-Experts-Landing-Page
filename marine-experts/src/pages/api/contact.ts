@@ -6,15 +6,73 @@ import nodemailer from 'nodemailer';
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
     const body = await request.json();
+
     const { name, email, phone, company, message } = body;
 
+    // Basic field validation
     if (!name || !email || !message) {
-      return new Response(JSON.stringify({ ok: false, message: 'Missing fields' }), {
-        status: 400,
-      });
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          message: 'Missing fields',
+          errors: { form: 'Required fields missing' },
+        }),
+        { status: 400 },
+      );
     }
 
-    // Resolve SMTP settings
+    // -----------------------------
+    // 🔐 hCaptcha Verification
+    // -----------------------------
+    const secret = import.meta.env.HCAPTCHA_SECRET;
+    if (secret) {
+      const token: string | undefined =
+        body.hcaptchaToken ||
+        body['h-captcha-response'] ||
+        body['hcaptcha'] ||
+        body['hCaptcha'];
+
+      if (!token) {
+        return new Response(
+          JSON.stringify({
+            ok: false,
+            message: 'Captcha required',
+            errors: { captcha: 'Please complete the captcha.' },
+          }),
+          { status: 400 },
+        );
+      }
+
+      const params = new URLSearchParams({
+        secret,
+        response: token,
+        remoteip: clientAddress || '',
+      });
+
+      const verify = await fetch('https://hcaptcha.com/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString(),
+      });
+
+      const result = await verify.json();
+
+      if (!result?.success) {
+        return new Response(
+          JSON.stringify({
+            ok: false,
+            message: 'Captcha verification failed',
+            errors: { captcha: 'Captcha invalid or expired. Please try again.' },
+            codes: result?.['error-codes'],
+          }),
+          { status: 400 },
+        );
+      }
+    }
+
+    // -----------------------------
+    // 📧 SMTP Setup
+    // -----------------------------
     const host = import.meta.env.SMTP_HOST;
     const envPort = import.meta.env.SMTP_PORT ? Number(import.meta.env.SMTP_PORT) : undefined;
     const user = import.meta.env.SMTP_USER;
@@ -28,55 +86,60 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       );
     }
 
-    // Helper to create + verify a transporter for a given port
-    const tryCreate = async (p: number) => {
-      const isSecure = p === 465; // SSL on 465, STARTTLS on 587
-      const t = nodemailer.createTransport({
+    const tryCreate = async (port: number) => {
+      const secure = port === 465;
+      const transporter = nodemailer.createTransport({
         host,
-        port: p,
-        secure: isSecure,
-        requireTLS: !isSecure,
+        port,
+        secure,
+        requireTLS: !secure,
         auth: { user, pass },
-        logger: import.meta.env.DEV === true,
       });
-      await t.verify();
-      return t;
+
+      await transporter.verify();
+      return transporter;
     };
 
-    // Try provided port; otherwise try 465 then fallback to 587
-    let transporter: nodemailer.Transporter;
+    let transporter;
     try {
       if (envPort) {
         transporter = await tryCreate(envPort);
       } else {
         try {
           transporter = await tryCreate(465);
-        } catch (e465: any) {
+        } catch {
           transporter = await tryCreate(587);
         }
       }
     } catch (e: any) {
-      const msg = e && e.response ? String(e.response) : e?.message || 'SMTP verify failed';
-      const details = {
-        hint: 'Check SMTP credentials, data center host (smtp.zoho.com vs smtp.zoho.eu), and use an app password if 2FA is enabled.',
-      };
       return new Response(
-        JSON.stringify({ ok: false, message: 'SMTP auth failed', error: msg, details }),
+        JSON.stringify({
+          ok: false,
+          message: 'SMTP auth failed',
+          error: e?.message || 'SMTP verify failed',
+          details: {
+            hint:
+              'Check SMTP credentials, data center host (smtp.zoho.com vs smtp.zoho.eu), and use an app password if 2FA is enabled.',
+          },
+        }),
         { status: 401 },
       );
     }
 
-    // Compose message
+    // -----------------------------
+    // ✉️ Compose the email
+    // -----------------------------
     const mailOptions = {
       from: `"Marine Experts Website" <${user}>`,
       to,
-      subject: `New Contact Form Submission from ${name}`,
+    subject: `New Contact Form Submission from ${name}`,
       replyTo: email,
       html: `
         <h2>Contact Request From: ${name}</h2>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || '-'}</p>
         <p><strong>Company:</strong> ${company || '-'}</p>
+        <p><strong>IP:</strong> ${clientAddress || '-'}</p>
         <hr/>
         <p>${message.replace(/\n/g, '<br/>')}</p>
       `,
@@ -86,12 +149,14 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch (err: any) {
-    console.error(err);
+    console.error('CONTACT API ERROR:', err);
     return new Response(
-      JSON.stringify({ ok: false, message: 'Failed to send mail', error: String(err.message) }),
-      {
-        status: 500,
-      },
+      JSON.stringify({
+        ok: false,
+        message: 'Failed to send mail',
+        error: String(err.message),
+      }),
+      { status: 500 },
     );
   }
 };

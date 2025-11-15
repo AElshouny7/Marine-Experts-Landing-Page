@@ -25,25 +25,52 @@ export default function ContactForm({ siteKey }: Props) {
     setStatus('submitting');
     setErrors({});
 
-    const fd = new FormData(formRef.current!);
-    const data = Object.fromEntries(fd.entries());
-    // Simple client checks (server has final say)
-    if (!String(data.email).includes('@')) {
+    if (!formRef.current) return;
+
+    const fd = new FormData(formRef.current);
+
+    // Basic fields
+    const data = Object.fromEntries(fd.entries()) as Record<string, FormDataEntryValue>;
+
+    // Client-side email check (server still validates)
+    const email = String(data.email || '');
+    if (!email.includes('@')) {
       setStatus('error');
       setErrors((p) => ({ ...p, email: 'Enter a valid email.' }));
       return;
     }
 
+    // 🔐 hCaptcha token from widget
+    const hcaptchaToken = String(fd.get('h-captcha-response') || '');
+
+    if (siteKey && !hcaptchaToken) {
+      setStatus('error');
+      setErrors((p) => ({
+        ...p,
+        hcaptcha: 'Please complete the security check.',
+      }));
+      return;
+    }
+
+    // Build payload for API (rename h-captcha-response -> hcaptchaToken)
+    // Remove raw h-captcha-response from data to keep payload clean
+    delete data['h-captcha-response'];
+    const payload = {
+      ...data,
+      hcaptchaToken,
+    };
+
     const res = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     });
 
     if (res.ok) {
       window.location.href = '/thanks';
       return;
     }
+
     const { errors: serverErrors, message } = await res.json().catch(() => ({}));
     setErrors(serverErrors ?? {});
     setStatus('error');
@@ -53,9 +80,8 @@ export default function ContactForm({ siteKey }: Props) {
   return (
     <section id="contact" className="container py-14">
       <h2 className="text-2xl md:text-3xl font-semibold text-navy">Contact</h2>
-      {/* <p className="mt-2 text-sm text-slate">Request a quote or speak to an engineer.</p> */}
 
-      <form ref={formRef} onSubmit={onSubmit} className="mt-6 grid md:grid-cols-2 gap-6">
+      <form ref={formRef} onSubmit={onSubmit} className="mt-6 grid md:grid-cols-2 gap-6" noValidate>
         <div>
           <label className="block text-sm font-medium text-navy">
             Name
@@ -69,7 +95,10 @@ export default function ContactForm({ siteKey }: Props) {
         <div>
           <label className="block text-sm font-medium text-navy">
             Company
-            <input name="company" className="mt-1 w-full border border-sand rounded-lg px-3 py-2" />
+            <input
+              name="company"
+              className="mt-1 w-full border border-sand rounded-lg px-3 py-2"
+            />
           </label>
         </div>
         <div>
@@ -87,7 +116,10 @@ export default function ContactForm({ siteKey }: Props) {
         <div>
           <label className="block text-sm font-medium text-navy">
             Phone
-            <input name="phone" className="mt-1 w-full border border-sand rounded-lg px-3 py-2" />
+            <input
+              name="phone"
+              className="mt-1 w-full border border-sand rounded-lg px-3 py-2"
+            />
           </label>
         </div>
         <div className="md:col-span-2">
@@ -102,12 +134,6 @@ export default function ContactForm({ siteKey }: Props) {
           </label>
         </div>
 
-        {siteKey && (
-          <div className="md:col-span-2">
-            <div className="h-captcha" data-sitekey={siteKey}></div>
-          </div>
-        )}
-
         <div className="md:col-span-2 flex flex-wrap items-center gap-4">
           <button
             type="submit"
@@ -117,9 +143,17 @@ export default function ContactForm({ siteKey }: Props) {
           >
             {status === 'submitting' ? 'Submitting…' : 'Submit'}
           </button>
-          {/* <a href="/images/map-offices.png" className="text-sm underline">
-            View office locations
-          </a> */}
+
+          {/* 🔐 hCaptcha widget BESIDE the button */}
+          {siteKey && (
+            <div>
+              <div className="h-captcha" data-sitekey={siteKey}></div>
+              {errors.hcaptcha && (
+                <p className="text-red-600 text-sm mt-1">{errors.hcaptcha}</p>
+              )}
+            </div>
+          )}
+
           {status === 'error' && (
             <p role="alert" className="text-sm text-red-700">
               Please fix the highlighted errors.
@@ -127,11 +161,11 @@ export default function ContactForm({ siteKey }: Props) {
           )}
         </div>
 
-        {/* a11y checklist (kept short):
+        {/* a11y checklist:
           - Labels bound to inputs
           - Required fields marked via required
           - Errors are described inline and announced (role=alert snippet)
-          - Buttons have clear text
+          - Buttons have clear, descriptive text
         */}
       </form>
     </section>
