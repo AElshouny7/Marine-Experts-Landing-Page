@@ -6,11 +6,47 @@ import { logoCloud } from '~/content/site';
   <h2 id="logos" class="text-center text-sm tracking-wide uppercase text-slate">
     {logoCloud.title}
   </h2>
-  <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center">
-    {
-      logoCloud.logos.map((l) => (
-        <img class="mx-auto opacity-80" src={l.src} width="120" height="48" alt={l.alt} />
-      ))
-    }
+
+  <div class="mt-8 overflow-hidden">
+    <div class="logo-marquee gap-12">
+      {
+        // duplicate array so we get a seamless loop
+        [...logoCloud.logos, ...logoCloud.logos].map((l) => (
+          <div class="flex items-center justify-center rounded-2xl px-6 py-4 min-w-[200px] h-24 shadow-sm">
+            <img
+              class="mx-auto opacity-90 max-h-14 w-auto object-contain"
+              src={l.src}
+              width="180"
+              height="56"
+              alt={`${l.alt} logo`}
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
+    </div>
   </div>
+
+  <style>
+    .logo-marquee {
+      display: inline-flex;
+      align-items: center;
+      width: max-content;
+      animation: logo-scroll 45s linear infinite;
+    }
+
+    .logo-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes logo-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        /* since we duplicated the list, moving 50% creates a seamless loop */
+        transform: translateX(-50%);
+      }
+    }
+  </style>
 </section>

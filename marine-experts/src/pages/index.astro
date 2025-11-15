@@ -15,18 +15,18 @@ import PricingTable from '~/components/PricingTable.tsx';
 import FAQAccordion from '~/components/FAQAccordion.tsx';
 import ContactForm from '~/components/ContactForm.tsx';
 
-import { company, trustBadges, services, pricing, faqs } from '~/content/site';
+import { company, trustBadges, services, pricing, faqs, cases } from '~/content/site';
 import { orgJsonLd, faqJsonLd } from '~/utils/seo';
 
 const ab = Astro.cookies.get('ab')?.value || 'heroA';
 const heroTitle = ab === 'heroB'
-  ? 'Safety-led vessel support, anywhere you need us'
-  : 'Operational excellence at sea & shore';
+  ? 'Complete offshore and quayside solutions'
+  : 'Complete offshore and quayside solutions';
 const heroCta = ab === 'heroB' ? 'Speak to an Engineer' : company.primaryCTAs[1].label;
 
 const domain = import.meta.env.PLAUSIBLE_DOMAIN || 'marineexpertsuae.com';
 const site = Astro.site?.origin || import.meta.env.SITE || 'https://marineexpertsuae.com';
-const pageTitle = "Marine Experts — Operational excellence at sea & shore";
+const pageTitle = "Marine Experts — Complete offshore and quayside solutions";
 const pageDesc = company.description;
 ---
 
@@ -60,7 +60,7 @@ const pageDesc = company.description;
               <a
                 href="#contact"
                 data-track="cta"
-                data-label="Request a Quote"
+                data-label="Talk to an Engineer"
                 data-variant={ab}
                 class="px-5 py-3 rounded-xl bg-teal text-white font-medium"
               >{company.primaryCTAs[0].label}</a>
@@ -106,20 +106,20 @@ const pageDesc = company.description;
 
       <MetricsStrip />
 
-      <PricingTable client:idle monthly={pricing.monthly} perCall={pricing.perCall} />
+      <!-- <PricingTable client:idle monthly={pricing.monthly} perCall={pricing.perCall} /> -->
 
       <section id="cases" class="container py-12">
         <h2 class="text-2xl md:text-3xl font-semibold text-navy">Case Snippets</h2>
         <div class="mt-6 grid md:grid-cols-2 gap-6">
           <article class="rounded-2xl border border-sand p-6">
-            <h3 class="text-lg font-semibold text-navy">Rapid PSC Readiness – Tanker</h3>
-            <p class="mt-2 text-sm text-slate">Mobilized surveyor and riding squad within 6h; cleared findings and achieved on-time departure.</p>
-            <p class="mt-2 text-sm font-medium text-navy">Result: 0 detentions | 18h port stay</p>
+            <h3 class="text-lg font-semibold text-navy">{cases[0].title}</h3>
+            <p class="mt-2 text-sm text-slate">{cases[0].text}</p>
+            <p class="mt-2 text-sm font-medium text-navy">Result: {cases[0].result}</p>
           </article>
           <article class="rounded-2xl border border-sand p-6">
-            <h3 class="text-lg font-semibold text-navy">Critical Spare to Anchorage – Bulk Carrier</h3>
-            <p class="mt-2 text-sm text-slate">Door-to-deck in 36h across two borders with bonded courier & launch coordination.</p>
-            <p class="mt-2 text-sm font-medium text-navy">Result: ETA preserved | No laytime impact</p>
+            <h3 class="text-lg font-semibold text-navy">{cases[1].title}</h3>
+            <p class="mt-2 text-sm text-slate">{cases[1].text}</p>
+            <p class="mt-2 text-sm font-medium text-navy">Result: {cases[1].result}</p>
           </article>
         </div>
       </section>

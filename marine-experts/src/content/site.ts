@@ -2,11 +2,11 @@
 
 export const company = {
   name: 'Marine Experts',
-  tagline: 'Operational excellence at sea & shore',
+  tagline: 'Complete offshore and quayside solutions',
   description:
-    'Trusted partner for port services, vessel support, inspections, and logistics. We mobilize fast, operate safely, and deliver on-time clearances across 180+ ports.',
+    'Marine Experts has been supporting complex oil & gas projects for more than 20 years, delivering reliable marine operations across ports, terminals, and offshore fields. From quayside load-in/load-out to crew logistics, provisions, certified manpower, offshore QC, and seafastening, we ensure every operation is executed safely, efficiently, and in full compliance with international standards. Our team combines deep operational experience with a safety-first mindset, enabling us to mobilize quickly, reduce downtime, and support our clients with end-to-end, 24/7 coordination',
   primaryCTAs: [
-    { label: 'Request a Quote', href: '#contact', id: 'cta-quote' },
+    { label: 'Contact Us', href: '#contact', id: 'cta-quote' },
     { label: 'Talk to an Engineer', href: 'mailto:ops@marine-experts.example.com', id: 'cta-talk' },
   ],
   // secondaryCTA: { label: 'Download Capabilities Deck (PDF)', href: '/deck.pdf', id: 'cta-deck' },
@@ -20,48 +20,53 @@ export const trustBadges = [
 
 export const logoCloud = {
   title: 'Trusted by leading owners, operators, and terminals',
-  logos: Array.from({ length: 8 }).map((_, i) => ({
-    alt: `Client ${i + 1}`,
-    src: '/images/logo-placeholder.svg',
-  })),
+  logos: [
+    { alt: 'BP', src: '/logos/BP.svg' },
+    { alt: 'ADNOC', src: '/logos/adnoc.svg' },
+    { alt: 'Saudi Aramco', src: '/logos/aramco.svg' },
+    { alt: 'North Oil Company', src: '/logos/noc.svg' },
+    { alt: 'Lamprell', src: '/logos/Lamprell.svg' },
+    { alt: 'GUPCO', src: '/logos/GUPCO.svg' },
+    { alt: 'TotalEnergies', src: '/logos/logo_totalenergies.svg' },
+  ],
 };
 
 export const services = [
   {
-    title: 'Port Agency',
-    description:
-      'End-to-end husbandry and clearance: pre-arrival coordination, berth planning, documentation, and turnarounds.',
+    title: 'Quayside Activities (Load-in / Load-out)',
     icon: '🛳️',
+    description:
+      'Heavy-lift coordination, rigging plans, stevedoring, and shore-side logistics for safe, efficient load-ins and load-outs.',
   },
   {
-    title: 'Technical Support',
+    title: 'Crew Changes',
+    icon: '👨‍✈️',
     description:
-      'Riding squads and OEM-backed technicians for onboard repairs, troubleshooting, and preventive maintenance.',
-    icon: '🛠️',
+      'End-to-end visas, meet & assist, launch/transport, medicals, and crew rotations aligned with port schedules.',
   },
   {
-    title: 'Class & Flag Inspections',
+    title: 'Provisions Supply',
+    icon: '🍱',
     description:
-      'Certified surveyors for class, flag, PSC prep, and condition assessments with actionable reports.',
-    icon: '📋',
+      'Fresh, bonded, and specialty stores with cold-chain assurance, QA checks, and just-in-time quayside delivery.',
   },
   {
-    title: 'Crew & Provisions',
+    title: 'Manpower Supply',
+    icon: '👷‍♂️',
     description:
-      'Visas, meet & assist, launches, bonded stores, catering, and medicals with 24/7 coordination.',
-    icon: '👩‍✈️',
+      'Certified technicians, riggers, welders, blasters, and riding squads for on-board and quayside operations.',
   },
   {
-    title: 'Spare Parts Logistics',
+    title: 'Cargo Barges & Vessels Chartering',
+    icon: '🎯',
     description:
-      'Door-to-deck logistics with customs handling, last-mile to gangway, and reverse logistics.',
-    icon: '📦',
+      'Flexible chartering solutions for cargo barges, supply vessels, and specialized marine units—supporting offshore campaigns, project cargo transport, and coastal operations with reliable availability and competitive day rates.',
   },
   {
-    title: 'Drydock Coordination',
+    title: 'Seafastening',
+    icon: '⚓',
     description:
-      'Specification, yard interface, HSE compliance, and daily progress tracking to control scope and cost.',
-    icon: '⚙️',
+      'Design, fabrication, and installation of seafastening solutions with calculations, weld maps, and as-built documentation.',
   },
 ];
 
@@ -82,10 +87,10 @@ export const how = {
 };
 
 export const differentiators = [
-  '24/7 operations desk',
-  'Global vendor network',
-  'Certified inspectors & surveyors',
-  'Rapid mobilization SLAs',
+  '97% on-time completion rate across marine and offshore operations',
+  'Comprehensive service offering delivered with confidence and 24/7 support',
+  'Target-oriented teams committed to meeting strict project deadlines',
+  'Proven excellence in marine services backed by 20+ years of experience',
 ];
 
 export const metrics = [
@@ -119,33 +124,33 @@ export const pricing = {
 
 export const cases = [
   {
-    title: 'Rapid PSC Readiness – Tanker',
-    text: 'Mobilized surveyor and riding squad within 6h; cleared findings and achieved on-time departure.',
-    result: '0 detentions | 18h port stay',
+    title: 'Last-Minute Cargo Barge Preparation – 24h Turnaround',
+    text: 'Received a late call for barge readiness and completed full cargo barge preparation, documentation, and checks within 24 hours.',
+    result: 'Barge mobilized on schedule | No delay to load-out window',
   },
   {
-    title: 'Critical Spare to Anchorage – Bulk Carrier',
-    text: 'Door-to-deck in 36h across two borders with bonded courier & launch coordination.',
-    result: 'ETA preserved | No laytime impact',
+    title: 'Seafastening Manpower & Equipment – Full Deck Clearance in 24h',
+    text: 'Deployed seafastening team and equipment on short notice to complete full deck clearance and securing operations within 24 hours.',
+    result: 'Vessel sailed as planned | No demurrage or laytime impact',
   },
 ];
 
 export const faqs = [
   {
     q: 'Which ports do you cover?',
-    a: 'We serve 180+ ports regionally and expand via partner agents. Share your voyage plan; we confirm coverage along your route.',
+    a: 'All GCC Countries.',
   },
   {
-    q: 'Can you support emergency turnarounds?',
-    a: 'Yes—our 24/7 desk escalates to rapid mobilization with predefined HSE and regulatory checks.',
+    q: 'How many projects covered?',
+    a: '145+ projects.',
   },
   {
-    q: 'What SLAs do you offer?',
-    a: 'Standard SLAs include response <15 min and mobilization windows by service type; bespoke SLAs available.',
+    q: 'How many cargo barges previously prepared?',
+    a: '200+ trips.',
   },
   {
-    q: 'Are your inspectors certified?',
-    a: 'Yes—class/flag recognized inspectors with verifiable credentials and calibration records.',
+    q: 'What are your type of services offered?',
+    a: 'Mechanical readiness of cargo, barges material supply, manpower arrangements',
   },
 ];
 
