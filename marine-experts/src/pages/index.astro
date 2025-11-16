@@ -41,6 +41,15 @@ const pageDesc = company.description;
     <script defer data-domain={domain} src="https://plausible.io/js/plausible.js"></script>
     <script defer data-domain={domain} src="https://plausible.io/js/plausible.outbound-links.js"></script>
     <script src="/plausible-shim.js" is:inline></script>
+
+    <script type="application/ld+json">
+      {JSON.stringify(orgJsonLd(site), null, 2)}
+    </script>
+
+    <script type="application/ld+json">
+      {JSON.stringify(faqJsonLd(faqs, site), null, 2)}
+    </script>
+
   </Fragment>
     <Header />
 

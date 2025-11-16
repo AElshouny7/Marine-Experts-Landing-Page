@@ -155,7 +155,7 @@ export const faqs = [
 ];
 
 export const contact = {
-  contactEmail: 'contact@marineexpertsuae.com',
+  contactEmail: 'info@marineexpertsuae.com',
 
   phone: '+971-56-299-8451',
   offices: [{ city: 'Dubai', country: 'UAE' }],
