@@ -9,7 +9,7 @@ export function orgJsonLd(site: string) {
     '@id': `${canonical}#organization`,
     name: 'Marine Experts',
     url: canonical,
-    logo: `${canonical}/icons/logo.svg`,
+    logo: `${canonical}/icons/logo-transparent.png`,
     // Fill these in when you have profiles
     // sameAs: [
     //   'https://www.linkedin.com/company/marine-experts',

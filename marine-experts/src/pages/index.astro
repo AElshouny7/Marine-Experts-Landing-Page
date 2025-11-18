@@ -56,15 +56,15 @@ const pageDesc = company.description;
     <main id="main">
       <section class="relative isolate">
         <img
-          src="/images/hero-harbor.jpg"
-          alt="Harbor operations with vessels at berth"
-          class="absolute inset-0 -z-10 w-full h-full object-cover opacity-25"
+          src="/images/Hero-Barge.jpg"
+          alt="Barge loaded with stacked steel pipes at sea."
+          class="absolute inset-0 -z-10 w-full h-full object-cover"
           loading="eager"
         />
         <div class="container py-16 md:py-24">
-          <div class="max-w-2xl">
+          <div class="max-w-2xl bg-white/80 backdrop-blur-sm p-6 rounded-lg">
             <h1 class="text-4xl md:text-5xl font-semibold text-navy">{heroTitle}</h1>
-            <p class="mt-4 text-slate">{company.description}</p>
+            <p class="mt-4 text-slate-700">{company.description}</p>
             <div class="mt-6 flex flex-wrap gap-4">
               <a
                 href="#contact"
