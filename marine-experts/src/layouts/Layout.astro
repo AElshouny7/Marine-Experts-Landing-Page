@@ -1,22 +1,29 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Primary SVG favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <!-- Fallback ICO (serve if added later) -->
+    <link rel="alternate icon" href="/favicon.svg" />
+    <!-- PNG variants for legacy / pinned contexts -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/logo.png" />
+    <meta name="theme-color" content="#0B1F3A" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Marine Experts</title>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
