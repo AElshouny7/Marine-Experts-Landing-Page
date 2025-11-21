@@ -1,5 +1,6 @@
 ---
 import '~/styles/tailwind.css';
+import Analytics from '@vercel/analytics/astro';
 const { title = 'Marine Experts' } = Astro.props;
 ---
 
@@ -25,5 +26,6 @@ const { title = 'Marine Experts' } = Astro.props;
   </head>
   <body>
     <slot />
+    {import.meta.env.PROD && <Analytics />}
   </body>
 </html>
