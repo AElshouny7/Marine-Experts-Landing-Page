@@ -39,10 +39,10 @@ export const services = [
       'Heavy-lift coordination, rigging plans, stevedoring, and shore-side logistics for safe, efficient load-ins and load-outs.',
   },
   {
-    title: 'Crew Changes',
+    title: 'Professional Crew Supply',
     icon: '👨‍✈️',
     description:
-      'End-to-end visas, meet & assist, launch/transport, medicals, and crew rotations aligned with port schedules.',
+      'Expert laying crews, certified divers, survey engineers, lifting specialists, and full project-management teams coordinated for all offshore operations.',
   },
   {
     title: 'Provisions Supply',
